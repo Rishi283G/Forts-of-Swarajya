@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us - Forts of Swarajya</title>
+    <link rel="stylesheet" th:href="@{/css/first.css}">
+    <style>
+        .about-us {
+            padding: 50px 20px;
+            text-align: center;
+            background-color: antiquewhite;
+            min-height: 80vh;
+        }
+
+        .about-us h2 {
+            font-size: 32px;
+            color: #ff6f00;
+            margin-bottom: 20px;
+        }
+
+        .about-us p {
+            font-size: 18px;
+            color: #555;
+            max-width: 900px;
+            margin: 20px auto;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h2> 🚩 FORTS OF SWARAJYA🚩</h2>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/forts}">Forts</a></li>
+            <li><a th:href="@{/about}">About Us</a></li>
+            <li><a th:href="@{/contact}">Contact Us</a></li>
+            <li><a th:href="@{/map}">Map</a></li>
+        </ul>
+        <form th:action="@{/search}" method="get" style="margin-left: 20px;">
+            <input type="text" name="query" placeholder="Search Forts..." style="padding: 5px; border-radius: 4px; border: none;">
+            <button type="submit" style="padding: 5px 10px; background-color: white; border: none; cursor: pointer; border-radius: 4px;">Search</button>
+        </form>
+    </nav>
+
+    <section class="about-us">
+        <h2><u> About Us</u></h2>
+    
+        <p>
+            This website is dedicated to the glorious legacy of 
+            <strong>Chhatrapati Shivaji Maharaj</strong> and the magnificent forts
+            that played a vital role in building Swarajya.
+        </p>
+    
+        <p>
+            Our aim is to provide historical information, images, and awareness
+            about the forts built, captured, and protected by Shivaji Maharaj.
+            These forts represent courage, strategy, and pride of Maharashtra.
+        </p>
+    
+        <p>
+            This project is created by Shradhda as an educational
+            website to learn and practice web development while preserving our history.
+        </p>
+    </section>
+
+    <footer>
+        <p>© 2026 | Designed by Shradhda Gadve CS</p>
+    </footer>
+
+</body>
+</html>

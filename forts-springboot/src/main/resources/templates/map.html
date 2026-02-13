@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Map - Forts of Swarajya</title>
+    <link rel="stylesheet" th:href="@{/css/first.css}">
+    <style>
+        .map-container {
+            text-align: center;
+            padding: 40px;
+        }
+        .map-container img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #333;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h2> 🚩 FORTS OF SWARAJYA🚩</h2>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/forts}">Forts</a></li>
+            <li><a th:href="@{/about}">About Us</a></li>
+            <li><a th:href="@{/contact}">Contact Us</a></li>
+            <li><a th:href="@{/map}">Map</a></li>
+        </ul>
+        <form th:action="@{/search}" method="get" style="margin-left: 20px;">
+            <input type="text" name="query" placeholder="Search Forts..." style="padding: 5px; border-radius: 4px; border: none;">
+            <button type="submit" style="padding: 5px 10px; background-color: white; border: none; cursor: pointer; border-radius: 4px;">Search</button>
+        </form>
+    </nav>
+
+    <div class="map-container">
+        <h2>Map of Swarajya Forts</h2>
+        <img th:src="@{/image/map1.jpg}" alt="Map of Forts" width="600">
+    </div>
+
+    <footer>
+        <p>© 2026 | Designed by Shradhda Gadve CS</p>
+    </footer>
+
+</body>
+</html>

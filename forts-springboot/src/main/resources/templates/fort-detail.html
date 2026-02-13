@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${fort.name} + ' - Forts of Swarajya'">Fort Detail</title>
+    <link rel="stylesheet" th:href="@{/css/first.css}">
+    <style>
+         .grid{
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+           gap: 15px;
+           background-color: rgb(255, 255, 255);
+           padding: 20px;
+       }
+       .grid img {
+           width: 100%;
+           height: 250px;
+           object-fit: cover;
+           border-radius: 8px;
+           transition: transform 0.3s;
+       }
+       .grid img:hover {
+           transform: scale(1.05);
+       }
+       .xy {
+              background-color: coral;
+              text-align: center;
+              padding: 15px;
+              color: white;
+              margin-bottom: 20px;
+       }
+       .content-container {
+           padding: 20px;
+           max-width: 1200px;
+           margin: auto;
+           background: white;
+           box-shadow: 0 0 10px rgba(0,0,0,0.1);
+       }
+       .fort-info {
+           margin-bottom: 30px;
+           font-size: 1.1rem;
+           line-height: 1.6;
+       }
+   </style>
+</head>
+<body>
+
+    <nav>
+        <h2> 🚩 FORTS OF SWARAJYA🚩</h2>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/forts}">Forts</a></li>
+            <li><a th:href="@{/about}">About Us</a></li>
+            <li><a th:href="@{/contact}">Contact Us</a></li>
+            <li><a th:href="@{/map}">Map</a></li>
+        </ul>
+        <form th:action="@{/search}" method="get" style="margin-left: 20px;">
+            <input type="text" name="query" placeholder="Search Forts..." style="padding: 5px; border-radius: 4px; border: none;">
+            <button type="submit" style="padding: 5px 10px; background-color: white; border: none; cursor: pointer; border-radius: 4px;">Search</button>
+        </form>
+    </nav>
+
+    <div class="content-container">
+        <div class="xy">
+            <h1 th:text="'-: ' + ${fort.name} + ' :-'">-: FORT NAME :-</h1>
+        </div>
+
+        <div class="fort-info">
+            <p><strong>Location:</strong> <span th:text="${fort.location}">Location</span></p>
+            <p><strong>Type:</strong> <span th:text="${fort.type}">Type</span></p>
+            <hr style="margin: 15px 0;">
+            <p th:utext="${#strings.replace(fort.description, '\n', '<br>')}">Description</p>
+        </div>
+
+        <h2 style="text-align: center; margin-bottom: 15px;">Gallery</h2>
+        <div class="grid">
+            <img th:each="img : ${fort.images}" th:src="@{${img.imagePath}}" th:alt="${fort.name}">
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a th:href="@{/forts}" style="padding: 10px 20px; background-color: #ff6f00; color: white; text-decoration: none; border-radius: 5px;">Back to All Forts</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 | Designed by Shradhda Gadve CS</p>
+    </footer>
+
+</body>
+</html>

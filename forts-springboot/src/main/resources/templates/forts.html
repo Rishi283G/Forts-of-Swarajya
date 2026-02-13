@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forts - Forts of Swarajya</title>
+    <link rel="stylesheet" th:href="@{/css/first.css}">
+</head>
+<body>
+
+    <nav>
+        <h2> 🚩 FORTS OF SWARAJYA🚩</h2>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/forts}">Forts</a></li>
+            <li><a th:href="@{/about}">About Us</a></li>
+            <li><a th:href="@{/contact}">Contact Us</a></li>
+            <li><a th:href="@{/map}">Map</a></li>
+        </ul>
+        <form th:action="@{/search}" method="get" style="margin-left: 20px;">
+            <input type="text" name="query" placeholder="Search Forts..." style="padding: 5px; border-radius: 4px; border: none;">
+            <button type="submit" style="padding: 5px 10px; background-color: white; border: none; cursor: pointer; border-radius: 4px;">Search</button>
+        </form>
+    </nav>
+
+    <div class="container" id="forts">
+        <h2 style="margin-bottom:20px;">Forts <span th:if="${searchQuery}"> - Search Results for "[[${searchQuery}]]"</span></h2>
+        
+        <div th:if="${forts.empty}">
+            <p>No forts found matching your search.</p>
+            <a th:href="@{/forts}">Show All Forts</a>
+        </div>
+
+        <div class="forts">
+            <div class="card" th:each="fort : ${forts}">
+                <a th:href="@{/fort/{id}(id=${fort.id})}">
+                    <img th:src="@{${fort.mainImage}}" th:alt="${fort.name}">
+                </a>
+                <div class="card-content">
+                    <h3 th:text="${fort.name}">Fort Name</h3>
+                    <p style="font-weight: bold; color: #555;" th:text="${fort.location} + ' | ' + ${fort.type}">Location | Type</p>
+                    <p th:text="${#strings.abbreviate(fort.description, 100)}">Description...</p>
+                    <a th:href="@{/fort/{id}(id=${fort.id})}" style="color: #ff6f00; font-weight: bold; text-decoration: none; margin-top: 10px; display: inline-block;">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 | Designed by Shradhda Gadve CS</p>
+    </footer>
+
+</body>
+</html>
