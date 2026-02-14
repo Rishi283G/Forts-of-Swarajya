@@ -1,25 +1,4 @@
 services:
-  # MySQL Database
-  - type: pserv
-    name: forts-mysql
-    env: docker
-    repo: https://github.com/render-examples/mysql
-    region: oregon
-    plan: free
-    disk:
-      name: mysql-data
-      mountPath: /var/lib/mysql
-      sizeGB: 1
-    envVars:
-      - key: MYSQL_DATABASE
-        value: forts_db
-      - key: MYSQL_USER
-        value: fortuser
-      - key: MYSQL_PASSWORD
-        generateValue: true
-      - key: MYSQL_ROOT_PASSWORD
-        generateValue: true
-
   # Spring Boot Application
   - type: web
     name: forts-of-swarajya
@@ -33,18 +12,31 @@ services:
         value: prod
       - key: PORT
         value: 8080
-      - key: DATABASE_URL
-        fromService:
-          type: pserv
-          name: forts-mysql
-          property: connectionString
-      - key: DATABASE_USERNAME
-        fromService:
-          type: pserv
-          name: forts-mysql
-          envVarKey: MYSQL_USER
-      - key: DATABASE_PASSWORD
-        fromService:
-          type: pserv
-          name: forts-mysql
-          envVarKey: MYSQL_PASSWORD
+      # Database Connection Details (Mapped from Render Managed PostgreSQL)
+      - key: DB_HOST
+        fromDatabase:
+          name: forts-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: forts-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: forts-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: forts-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: forts-db
+          property: password
+
+databases:
+  - name: forts-db
+    databaseName: forts_db
+    user: fortuser
+    region: oregon
+    plan: free
