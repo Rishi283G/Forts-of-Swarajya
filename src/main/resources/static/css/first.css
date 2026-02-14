@@ -51,7 +51,7 @@ nav ul li a:hover {
 /* Hero Section (from index) */
 .hero {
     height: 90vh;
-    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("/images/r1.jpg");
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("/images/maharaj2.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
