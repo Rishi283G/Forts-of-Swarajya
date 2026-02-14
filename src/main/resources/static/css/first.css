@@ -51,7 +51,7 @@ nav ul li a:hover {
 /* Hero Section (from index) */
 .hero {
     height: 90vh;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("/images/raigad.jpg"); /* Default hero image */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("/images/r1.jpg"); /* Corrected: absolute path and valid image */
     background-size: cover;
     background-position: center;
     color: white;
