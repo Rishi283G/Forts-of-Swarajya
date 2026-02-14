@@ -23,7 +23,10 @@
         </form>
     </nav>
 
-    <section class="hero" th:style="'background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(\'' + @{/images/maharaj2.jpg} + '\') no-repeat center center / cover'">
+    <section class="hero"
+         th:style="|background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+         url('@{/images/maharaj2.jpg}') no-repeat center center / cover;|">
+
         <h1>🚩Chhatrapati Shivaji Maharaj🚩</h1>
         <div style="text-align: center; color: white;">
             <h2>|।प्रतिपच्चंद्रलेखेव वर्धिष्णुर्विश्ववंदिता शाहसुनोः शिवस्यैषा मुद्रा भद्राय राजते।|</h2>
