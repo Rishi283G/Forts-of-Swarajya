@@ -15,11 +15,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Database seeder for development environment
- * Only runs in 'dev' profile to prevent accidental data seeding in production
+ * Database seeder for initializing fort data.
+ * Runs on application startup and seeds the database if the 'forts' table is empty.
+ * Production-safe as it includes a count check to avoid duplicates.
  */
 @Component
-@Profile("dev") // Only run in development mode
 public class DataSeeder implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(DataSeeder.class);
