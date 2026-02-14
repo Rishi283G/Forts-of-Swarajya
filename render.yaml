@@ -12,24 +12,24 @@ services:
         value: prod
       - key: PORT
         value: 8080
-      # Database Connection Details (Mapped from Render Managed PostgreSQL)
-      - key: DB_HOST
+      # PostgreSQL Credentials & Connection
+      - key: PGHOST
         fromDatabase:
           name: forts-db
           property: host
-      - key: DB_PORT
+      - key: PGPORT
         fromDatabase:
           name: forts-db
           property: port
-      - key: DB_NAME
+      - key: PGDATABASE
         fromDatabase:
           name: forts-db
           property: database
-      - key: DB_USER
+      - key: PGUSER
         fromDatabase:
           name: forts-db
           property: user
-      - key: DB_PASSWORD
+      - key: PGPASSWORD
         fromDatabase:
           name: forts-db
           property: password
