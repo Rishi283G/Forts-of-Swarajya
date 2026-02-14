@@ -3,16 +3,26 @@ package com.forts.config;
 import com.forts.model.Fort;
 import com.forts.model.FortImage;
 import com.forts.repository.FortRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Database seeder for development environment
+ * Only runs in 'dev' profile to prevent accidental data seeding in production
+ */
 @Component
+@Profile("dev") // Only run in development mode
 public class DataSeeder implements CommandLineRunner {
+
+    private static final Logger logger = LoggerFactory.getLogger(DataSeeder.class);
 
     @Autowired
     private FortRepository fortRepository;
@@ -20,7 +30,8 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (fortRepository.count() == 0) {
-            System.out.println("Seeding database with forts...");
+            logger.info("Seeding database with forts...");
+
 
             // 1. Raigad
             createFort("Raigad Fort", "Raigad District", "Hill Fort",
@@ -86,7 +97,7 @@ public class DataSeeder implements CommandLineRunner {
                     "/image/rajgad.jpg",
                     Arrays.asList("/image/raj1.jpg", "/image/raj2.jpg", "/image/raj3.jpg", "/image/raj4.jpg", "/image/raj5.jpg", "/image/raj6.jpg", "/image/raj7.jpg"));
 
-            System.out.println("Seeding complete!");
+            logger.info("Seeding complete!");
         }
     }
 

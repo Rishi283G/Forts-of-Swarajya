@@ -17,3 +17,26 @@ bin/
 *.tar.gz
 *.rar
 hs_err_pid*
+
+# Environment files (NEVER commit these!)
+.env
+.env.local
+.env.production
+
+# IDE-specific files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Database files
+*.db
+*.sqlite
+
+# Logs
+logs/
+*.log
