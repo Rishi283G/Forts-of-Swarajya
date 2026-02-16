@@ -27,7 +27,7 @@ public class Fort {
     @Column(name = "main_image")
     private String mainImage;
 
-    @OneToMany(mappedBy = "fort", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "fort", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<FortImage> images = new ArrayList<>();
 
     @Column(columnDefinition = "TEXT")
