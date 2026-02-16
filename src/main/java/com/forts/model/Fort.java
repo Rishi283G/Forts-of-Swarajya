@@ -1,6 +1,7 @@
 package com.forts.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,7 +28,7 @@ public class Fort {
     private String mainImage;
 
     @OneToMany(mappedBy = "fort", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FortImage> images;
+    private List<FortImage> images = new ArrayList<>();
 
     @Column(columnDefinition = "TEXT")
     private String history;

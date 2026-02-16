@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -46,13 +47,32 @@ public class MainController {
             Fort fort = fortService.getFortById(id);
             model.addAttribute("fort", fort);
 
+            List<String> galleryPaths = new ArrayList<>();
+            
+            // 1. Prioritize galleryImages comma-separated string
             if (fort.getGalleryImages() != null && !fort.getGalleryImages().isEmpty()) {
-                List<String> gallery = Arrays.asList(fort.getGalleryImages().split(","));
-                model.addAttribute("gallery", gallery);
-            } else {
-                model.addAttribute("gallery", Arrays.asList());
+                String[] images = fort.getGalleryImages().split(",");
+                for (String img : images) {
+                    String trimmed = img.trim();
+                    if (!trimmed.isEmpty()) {
+                        // Ensure it has the full path if it's just a filename
+                        if (!trimmed.startsWith("/")) {
+                            galleryPaths.add("/images/" + trimmed);
+                        } else {
+                            galleryPaths.add(trimmed);
+                        }
+                    }
+                }
+            } 
+            
+            // 2. Fallback to images collection if galleryPaths is still empty
+            if (galleryPaths.isEmpty() && fort.getImages() != null) {
+                for (com.forts.model.FortImage fi : fort.getImages()) {
+                    galleryPaths.add(fi.getImagePath());
+                }
             }
 
+            model.addAttribute("galleryPaths", galleryPaths);
             return "fort-details";
         } catch (RuntimeException e) {
             logger.warn("Fort not found with ID: {}", id);

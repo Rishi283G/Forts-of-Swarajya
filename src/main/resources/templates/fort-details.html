@@ -151,21 +151,11 @@
         </div>
     </section>
 
-    <section class="gallery-container" th:if="${not #lists.isEmpty(gallery)}">
+    <section class="gallery-container" th:if="${galleryPaths != null and !#lists.isEmpty(galleryPaths)}">
         <h2>Photo Gallery</h2>
         <div class="gallery">
-            <div class="gallery-item" th:each="img : ${gallery}">
-                <img th:src="@{/images/{name}(name=${img})}" th:alt="${fort.name}" />
-            </div>
-        </div>
-    </section>
-    
-    <!-- Also support the existing FortImage list if galleryImages string is empty -->
-    <section class="gallery-container" th:if="${#lists.isEmpty(gallery) and not #lists.isEmpty(fort.images)}">
-        <h2>Photo Gallery</h2>
-        <div class="gallery">
-            <div class="gallery-item" th:each="img : ${fort.images}">
-                <img th:src="@{${img.imagePath}}" th:alt="${fort.name}" />
+            <div class="gallery-item" th:each="path : ${galleryPaths}">
+                <img th:src="@{${path}}" th:alt="${fort.name}" />
             </div>
         </div>
     </section>
