@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,16 +42,19 @@ public class MainController {
     public String fortDetail(@PathVariable Long id, Model model) {
         logger.info("Fetching fort details for ID: {}", id);
         
-        if (id == null || id <= 0) {
-            logger.warn("Invalid fort ID: {}", id);
-            return "redirect:/forts";
-        }
-        
-        Optional<Fort> fort = fortService.getFortById(id);
-        if (fort.isPresent()) {
-            model.addAttribute("fort", fort.get());
-            return "fort-detail";
-        } else {
+        try {
+            Fort fort = fortService.getFortById(id);
+            model.addAttribute("fort", fort);
+
+            if (fort.getGalleryImages() != null && !fort.getGalleryImages().isEmpty()) {
+                List<String> gallery = Arrays.asList(fort.getGalleryImages().split(","));
+                model.addAttribute("gallery", gallery);
+            } else {
+                model.addAttribute("gallery", Arrays.asList());
+            }
+
+            return "fort-details";
+        } catch (RuntimeException e) {
             logger.warn("Fort not found with ID: {}", id);
             return "redirect:/forts";
         }

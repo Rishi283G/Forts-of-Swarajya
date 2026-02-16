@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${fort.name} + ' - Forts of Swarajya'">Fort Details</title>
+    <link rel="stylesheet" th:href="@{/css/first.css}">
+    <style>
+        .fort-hero {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            margin-top: 60px; /* Offset for fixed nav */
+        }
+        .fort-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+        .fort-hero h1 {
+            z-index: 2;
+            font-size: 4rem;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+        }
+        .fort-info-section {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+        }
+        .info-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #ff6f00;
+        }
+        .info-item {
+            flex: 1;
+            min-width: 200px;
+        }
+        .info-item span {
+            display: block;
+            font-weight: bold;
+            color: #ff6f00;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+        .description-text {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .history-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .history-section h2 {
+            color: #ff6f00;
+            margin-bottom: 15px;
+        }
+        .gallery-container {
+            padding: 40px;
+            background: #f4f4f4;
+        }
+        .gallery-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: 250px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        @media (max-width: 768px) {
+            .fort-hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h2> 🚩 FORTS OF SWARAJYA🚩</h2>
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/forts}">Forts</a></li>
+            <li><a th:href="@{/about}">About Us</a></li>
+            <li><a th:href="@{/contact}">Contact Us</a></li>
+            <li><a th:href="@{/map}">Map</a></li>
+        </ul>
+        <form th:action="@{/search}" method="get" style="margin-left: 20px;">
+            <input type="text" name="query" placeholder="Search Forts..." style="padding: 5px; border-radius: 4px; border: none;">
+            <button type="submit" style="padding: 5px 10px; background-color: white; border: none; cursor: pointer; border-radius: 4px;">Search</button>
+        </form>
+    </nav>
+
+    <div class="fort-hero"
+         th:style="|background: url('@{${fort.mainImage}}') center/cover no-repeat; background-attachment: fixed;|">
+        <h1 th:text="${fort.name}">Fort Name</h1>
+    </div>
+
+    <section class="fort-info-section">
+        <div class="info-card">
+            <div class="info-item">
+                <span>District</span>
+                <p th:text="${fort.location}">District Name</p>
+            </div>
+            <div class="info-item">
+                <span>Type</span>
+                <p th:text="${fort.type}">Hill Fort</p>
+            </div>
+        </div>
+
+        <div class="description-text">
+            <p th:text="${fort.description}">Full description here...</p>
+        </div>
+
+        <div class="history-section" th:if="${fort.history != null}">
+            <h2>History</h2>
+            <div class="description-text">
+                <p th:text="${fort.history}">History text here...</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-container" th:if="${not #lists.isEmpty(gallery)}">
+        <h2>Photo Gallery</h2>
+        <div class="gallery">
+            <div class="gallery-item" th:each="img : ${gallery}">
+                <img th:src="@{/images/{name}(name=${img})}" th:alt="${fort.name}" />
+            </div>
+        </div>
+    </section>
+    
+    <!-- Also support the existing FortImage list if galleryImages string is empty -->
+    <section class="gallery-container" th:if="${#lists.isEmpty(gallery) and not #lists.isEmpty(fort.images)}">
+        <h2>Photo Gallery</h2>
+        <div class="gallery">
+            <div class="gallery-item" th:each="img : ${fort.images}">
+                <img th:src="@{${img.imagePath}}" th:alt="${fort.name}" />
+            </div>
+        </div>
+    </section>
+
+    <div style="text-align: center; padding: 40px;">
+        <a th:href="@{/forts}" style="padding: 12px 30px; background: #ff6f00; color: white; border-radius: 30px; text-decoration: none; font-weight: bold; transition: background 0.3s;">Explore More Forts</a>
+    </div>
+
+    <footer>
+        <p>© 2026 | Designed by Shradhda Gadve CS</p>
+    </footer>
+
+</body>
+</html>

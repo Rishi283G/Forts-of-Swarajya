@@ -29,6 +29,11 @@ public class Fort {
     @OneToMany(mappedBy = "fort", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FortImage> images;
 
+    @Column(columnDefinition = "TEXT")
+    private String history;
+
+    private String galleryImages; // comma separated image names
+
     public Fort() {}
 
     public Fort(String name, String location, String type, String description, String mainImage) {
@@ -60,4 +65,10 @@ public class Fort {
 
     public List<FortImage> getImages() { return images; }
     public void setImages(List<FortImage> images) { this.images = images; }
+
+    public String getHistory() { return history; }
+    public void setHistory(String history) { this.history = history; }
+
+    public String getGalleryImages() { return galleryImages; }
+    public void setGalleryImages(String galleryImages) { this.galleryImages = galleryImages; }
 }

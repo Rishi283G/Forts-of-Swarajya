@@ -18,8 +18,9 @@ public class FortService {
         return fortRepository.findAll();
     }
 
-    public Optional<Fort> getFortById(Long id) {
-        return fortRepository.findById(id);
+    public Fort getFortById(Long id) {
+        return fortRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Fort not found"));
     }
 
     public List<Fort> searchForts(String query) {
